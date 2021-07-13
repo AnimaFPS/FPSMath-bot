@@ -1,0 +1,38 @@
+name: Continuous Delivery
+
+on:
+  workflow_dispatch:
+    inputs:
+      prNumber:
+        description: The number of the PR that is being deployed
+        required: true
+  push:
+    branches:
+      - main
+
+jobs:
+  Release:
+    name: Release the version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Use Node.js v16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Restore CI Cache
+        uses: actions/cache@v2.1.6
+        id: cache-restore
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-16-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies if Cache Miss
+        if: ${{ !steps.cache-restore.outputs.cache-hit }}
+        run: yarn --immutable --immutable-cache
+      - name: Bump Version & Publish
+        run: |
+          # Bump the version
+          yarn release

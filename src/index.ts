@@ -1,100 +1,58 @@
-import * as dotenv from "dotenv";
-import { AkairoClient, CommandHandler } from "discord-akairo";
-import * as winston from "winston";
-import { Poster } from "dbots";
-import * as Sentry from "@sentry/node";
+import { SapphireClient, LogLevel } from '@sapphire/framework';
+import '@sapphire/plugin-logger/register';
+import 'dotenv/config';
+import * as Sentry from '@sentry/node';
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+	dsn: process.env.SENTRY_DSN,
 
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
+	// Set tracesSampleRate to 1.0 to capture 100%
+	// of transactions for performance monitoring.
+	// We recommend adjusting this value in production
+	tracesSampleRate: 1.0
 });
 
-dotenv.config();
-const Token = process.env.DISCORD_TOKEN;
-
-const logger = winston.createLogger({
-  level: "debug",
-  format: winston.format.combine(
-    winston.format.timestamp({
-      format: "YYYY-MM-DD HH:mm:ss",
-    }),
-    winston.format.errors({ stack: true }),
-    winston.format.splat(),
-    winston.format.json()
-  ),
-  defaultMeta: { service: "fpsmath" },
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.printf(
-          (info: winston.Logform.TransformableInfo) =>
-            `${info.timestamp} ${info.level}: ${info.message}`
-        )
-      ),
-    }),
-  ],
+export const client = new SapphireClient({
+	defaultPrefix: 'fps-',
+	caseInsensitiveCommands: true,
+	logger: {
+		level: LogLevel.Trace
+	},
+	shards: 'auto',
+	ws: {
+		intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS']
+	},
+	presence: {
+		activity: {
+			name: 'fps-help | fpsmath.animafps.xyz'
+		}
+	}
 });
 
-class Client extends AkairoClient {
-  commandHandler: CommandHandler;
-  constructor() {
-    super(
-      {
-        ownerID: process.env.OWNER_ID,
-      },
-      {}
-    );
-
-    this.commandHandler = new CommandHandler(this, {
-      directory: __dirname.includes("/dist/")
-        ? "./dist/commands/"
-        : "./src/commands/",
-      commandUtil: true,
-      handleEdits: true,
-      automateCategories: true,
-      commandUtilLifetime: 30000,
-      prefix: "/",
-      allowMention: true,
-      aliasReplacement: /-/g,
-    });
-    this.commandHandler.loadAll();
-  }
+async function main() {
+	try {
+		client.logger.info('Logging in');
+		await client.login(process.env.DISCORD_TOKEN);
+		client.logger.info(`Client ready; logged in as ${client.user?.username}#${client.user?.discriminator} (${client.user?.id})`);
+		client.logger.info(`Running on ${client.guilds.cache.size} servers Serving ${client.users.cache.size} person`);
+	} catch (err) {
+		client.logger.fatal(err);
+		client.destroy();
+		process.exit(1);
+	}
 }
 
-const client = new Client();
+void main();
 
-client
-  .on("warn", (m) => logger.warn(m))
-  .on("error", (m) => logger.error(m))
-  .on("ready", () => {
-    client.user?.setActivity("/help | fpsmath.animafps.xyz");
-    logger.info(
-      `Client ready; logged in as ${client.user?.username}#${client.user?.discriminator} (${client.user?.id})`
-    );
-    logger.info(`Running on ${client.guilds.cache.array().length} servers`);
-    const poster = new Poster({
-      client,
-      apiKeys: {
-        topgg: process.env.TOPGG_API_TOKEN || "",
-        discordbotsgg: process.env.DISCORD_BOTSGG_TOKEN || "",
-        botsfordiscord: process.env.BOTSFORDISCORD_TOKEN || "",
-      },
-      clientLibrary: "discord.js",
-    });
-    poster.addHandler("postSuccess", () => logger.debug("Api Post Success"));
-    poster.post("all");
-    poster.startInterval();
-  })
-  .on("disconnect", () => {
-    logger.warn("Disconnected!");
-  });
+process.on('unhandledRejection', (reason: string) => {
+	// I just caught an unhandled promise rejection,
+	// since we already have fallback handler for unhandled errors (see below),
+	// let throw and let him handle that
+	throw Error(reason);
+});
 
-process.on("uncaughtException", (error) => logger.error(error));
-process.on("unhandledRejection", (m) => logger.error(m));
-
-client.login(Token);
+process.on('uncaughtException', (error: Error) => {
+	client.logger.fatal(error);
+	client.destroy();
+	process.exit(1);
+});

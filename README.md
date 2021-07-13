@@ -1,32 +1,70 @@
-<img src="https://cdn.discordapp.com/avatars/792712521546465301/a8176886ccd814f17b4c5a98b62e185a.png" alt="Logo of the project" align="right">
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="https://i.imgur.com/FxL5qM0.jpg" alt="Bot logo"></a>
+</p>
 
-# FPSMath &middot; [![Build Status](https://img.shields.io/github/workflow/status/fpsmath/fpsmath/CI?logo=github&style=flat-square)](https://github.com/AnimaFPS/FPSMath/Actions) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/fpsmath/fpsmath/blob/master/LICENSE)
+<h3 align="center">fpsmath</h3>
 
-## Installing / Getting started
+<div align="center">
 
-[Install This Bot on Your Server](https://fpsmath.animafps.xyz/docs/getting-started) or DM `FPSMath#9838`\(the bot\) with the commands outside of a server
+[![Discord](https://img.shields.io/discord/830046036579450880?logo=discord&style=flat-square)](https://discord.com/invite/)
+[![Codecov](https://img.shields.io/codecov/c/github/animafps/fpsmath?logo=codecov&style=flat-square)](https://app.codecov.io/gh/animafps/fpsmath/)
+[![GitHub Issues](https://img.shields.io/github/issues/animafps/fpsmath?style=flat-square)](https://github.com/animafps/fpsmath/issues)
+[![Status](https://top.gg/api/widget/status/792712521546465301.svg?noavatar=true)](https://top.gg/bot/792712521546465301)
+[![Servers Serving](https://top.gg/api/widget/servers/792712521546465301.svg?noavatar=true)](https://top.gg/bot/792712521546465301)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/animafps/fpsmath/continuous_intergration)](https://github.com/animafps/fpsmath/actions)
 
-or from source [Instructions](/docs/CONTRIBUTING.md)
+</div>
 
-## [**Read The Documentation for Usage and More**](https://fpsmath.animafps.xyz)
+---
 
-## Built With
+<p align="center"> 🤖 A Discord bot designed to convert video game sensitivities, FOV values, mouse feel across themselves and preset games.
+    <br> 
+</p>
 
-- [discord.js](https://github.com/discordjs/discord.js) - The Discord Integration
-- [discord-akairo](https://github.com/discord-akairo/discord-akairo) - Bot Framework
-- [Node](https://nodejs.org/) - The Framework and Runtime
-- [Mathjs](https://mathjs.org/) - Used for Math functions
+## 📝 Table of Contents
 
-## Contributing
+-   [📝 Table of Contents](#-table-of-contents)
+-   [🧐 About <a name = "about"></a>](#-about-)
+-   [🎥 Demo / Working <a name = "demo"></a>](#-demo--working-)
+-   [💭 How it works <a name = "working"></a>](#-how-it-works-)
+-   [🎈 Usage <a name = "usage"></a>](#-usage-)
+-   [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started-)
+-   [⛏️ Built Using <a name = "built_using"></a>](#️-built-using-)
+-   [✍️ Authors <a name = "authors"></a>](#️-authors-)
+-   [🎉 Acknowledgements <a name = "acknowledgement"></a>](#-acknowledgements-)
 
-See the [contributing](/docs/CONTRIBUTING.md) file!
+## 🧐 About <a name = "about"></a>
 
-PRs accepted.
+Write about 1-2 paragraphs describing the purpose of your bot.
 
-## Versioning
+## 🎥 Demo / Working <a name = "demo"></a>
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/AnimaFPS/FPSMath/tags).
+![Working](https://media.giphy.com/media/20NLMBm0BkUOwNljwv/giphy.gif)
 
-## License
+## 💭 How it works <a name = "working"></a>
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+The entire bot is written in Typescript
+
+## 🎈 Usage <a name = "usage"></a>
+
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+-   [Discord.js](https://github.com/discordjs/discord.js) - Library that interacts with the Discord api
+-   [Sapphire Framework](https://github.com/sapphiredev/framework) - The framework to work with Discord.js
+-   [Typescript](https://typescriptlang.org) - Language the bot is written in
+-   [Node.js](https://nodejs.org) - The runtime
+
+## ✍️ Authors <a name = "authors"></a>
+
+-   [@animafps](https://github.com/animafps) - Idea & Initial work
+
+See also the list of [contributors](https://github.com/animafps/fpsmath/contributors) who participated in this project.
+
+## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+
+-   [Kovaak's Sensitivity Matcher Script](https://github.com/KovaaK/SensitivityMatcher) - Tool used to find the yaw values
+-   [Sensitivity-Converter-Bot](https://github.com/JSanchezIO/Sensitivity-Converter-Bot) - The inspiration for me making this bot
+-   Nocro - Helped with the initial math equations
