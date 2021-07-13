@@ -19,7 +19,7 @@
   "dependencies": {
     "@sentry/node": "^6.3.6",
     "@sentry/tracing": "^6.3.6",
-    "@types/common-tags": "^1.8.0",
+    "@types/common-tags": "^1.8.1",
     "@types/mathjs": "^6.0.11",
     "@types/node": "^14.14.41",
     "common-tags": "^1.8.0",
